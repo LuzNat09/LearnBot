@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>LearnBot! - Avatar Selection</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style type="text/tailwindcss">
+        :root {
+            --primary: #FF4D2D;
+            --learn-orange: #FF8C00;
+            --learn-blue: #00B4E5;
+            --learn-pink: #FF85B3;
+            --learn-yellow: #FFD700;
+            --learn-purple: #A855F7;
+            --learn-green: #4ADE80;
+            --glass-white: rgba(255, 255, 255, 0.7);
+        }
+        body {
+            font-family: 'Fredoka', sans-serif;
+            background-color: #E0F2FE;
+            overflow-x: hidden;
+        }
+        .jelly-nav {
+            background: var(--glass-white);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 3px solid rgba(255, 255, 255, 0.4);
+            border-radius: 0 0 40px 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05), inset 0 -4px 6px rgba(255, 255, 255, 0.4);
+        }
+        .monster-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .monster-card:hover {
+            transform: translateY(-12px) scale(1.02);
+        }
+        .glow-purple { box-shadow: 0 0 25px rgba(168, 85, 247, 0.4), 0 0 0 4px rgba(168, 85, 247, 0.2); border-color: #A855F7; }
+        .glow-orange { box-shadow: 0 0 25px rgba(255, 140, 0, 0.4), 0 0 0 4px rgba(255, 140, 0, 0.2); border-color: #FF8C00; }
+        .glow-pink { box-shadow: 0 0 25px rgba(255, 133, 179, 0.4), 0 0 0 4px rgba(255, 133, 179, 0.2); border-color: #FF85B3; }
+        .glow-blue { box-shadow: 0 0 25px rgba(0, 180, 229, 0.4), 0 0 0 4px rgba(0, 180, 229, 0.2); border-color: #00B4E5; }
+        .abstract-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        .squiggle {
+            position: absolute;
+            opacity: 0.2;
+        }
+        .bouncy-btn {
+            box-shadow: 0 12px 0 #166534, 0 20px 30px rgba(74, 222, 128, 0.4);
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .bouncy-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 0 #166534, 0 24px 40px rgba(74, 222, 128, 0.5);
+        }
+        .bouncy-btn:active {
+            transform: translateY(8px);
+            box-shadow: 0 4px 0 #166534;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+<div class="abstract-bg">
+<svg class="squiggle w-64 h-64 text-yellow-400" style="top: -5%; left: -5%" viewBox="0 0 200 200">
+<path d="M44.7,-76.4C58.1,-69.2,69.2,-58.1,76.4,-44.7C83.7,-31.3,87.1,-15.7,86.2,-0.5C85.3,14.6,80.1,29.3,72.4,42.7C64.8,56.1,54.6,68.2,41.9,76.5C29.1,84.8,14.6,89.3,0.1,89.1C-14.4,89,-28.8,84.1,-41.8,76C-54.8,67.8,-66.4,56.3,-74.2,42.9C-82.1,29.5,-86.1,14.8,-86.7,-0.3C-87.2,-15.4,-84.3,-30.9,-76.3,-44.1C-68.4,-57.3,-55.4,-68.2,-41.2,-75C-27,-81.8,-13.5,-84.5,0.7,-85.7C15,-86.9,29.9,-86.6,44.7,-76.4Z" fill="currentColor" transform="translate(100 100)"></path>
+</svg>
+<div class="absolute w-6 h-6 bg-pink-300 rounded-full opacity-40" style="top: 20%; right: 15%"></div>
+<div class="absolute w-4 h-4 bg-blue-400 rounded-full opacity-40" style="bottom: 30%; left: 10%"></div>
+<div class="absolute w-8 h-8 bg-orange-300 rounded-full opacity-30" style="top: 60%; left: 80%"></div>
+<svg class="squiggle w-48 h-48 text-blue-300" style="bottom: -5%; right: 5%" viewBox="0 0 200 200">
+<path d="M38.5,-66.7C49.9,-60.1,59.3,-49.9,65.7,-38.2C72,-26.4,75.4,-13.2,74.9,-0.3C74.3,12.6,69.9,25.2,62.8,36.1C55.6,47.1,45.8,56.3,34.4,62.6C22.9,68.9,9.9,72.2,-3.3,77.9C-16.5,83.7,-29.9,91.8,-42.1,87.4C-54.3,83,-65.4,66.1,-72.7,48.9C-80,31.7,-83.5,14.1,-82.1,-3.1C-80.6,-20.3,-74.3,-37.2,-64.2,-50.2C-54.1,-63.2,-40.3,-72.3,-26.6,-77.2C-13,-82.2,0.3,-83.1,13.5,-80.4C26.8,-77.8,38.5,-66.7,38.5,-66.7Z" fill="currentColor" transform="translate(100 100)"></path>
+</svg>
+</div>
+<header class="h-24 jelly-nav flex items-center px-12 sticky top-0 z-50 mx-4 mt-2">
+<div class="flex items-center gap-3">
+<div class="w-14 h-14 bg-learn-orange rounded-2xl flex items-center justify-center shadow-lg transform rotate-3">
+<span class="material-symbols-outlined text-white text-3xl">smart_toy</span>
+</div>
+<span class="text-3xl font-black text-learn-orange tracking-tighter">LearnBot!</span>
+</div>
+<div class="ml-auto flex items-center gap-10">
+<nav class="hidden md:flex gap-10 text-xl font-bold">
+<a class="flex items-center gap-2 text-purple-600 hover:scale-110 transition-transform" href="#">
+<span class="material-symbols-outlined text-purple-500">sports_esports</span>Games
+            </a>
+<a class="flex items-center gap-2 text-blue-600 hover:scale-110 transition-transform" href="#">
+<span class="material-symbols-outlined text-blue-500">auto_stories</span>Stories
+            </a>
+<a class="flex items-center gap-2 text-pink-600 hover:scale-110 transition-transform" href="#">
+<span class="material-symbols-outlined text-pink-500">family_restroom</span>Parents
+            </a>
+</nav>
+<button class="bg-primary text-white px-10 py-3 rounded-2xl text-xl font-bold hover:scale-105 transition-transform shadow-[0_6px_0_#991b1b]">
+            Bye Bye!
+        </button>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-8 py-16 flex flex-col items-center">
+<div class="text-center mb-12">
+<h1 class="text-6xl md:text-7xl font-black text-blue-600 mb-6 drop-shadow-sm">Choose Your Friend!</h1>
+<div class="relative max-w-md mx-auto">
+<input class="w-full bg-white border-4 border-blue-200 rounded-3xl px-8 py-5 text-2xl font-bold focus:ring-4 focus:ring-blue-300 focus:border-blue-400 outline-none placeholder-gray-300 text-blue-600 shadow-inner" placeholder="Type your cool name..." type="text"/>
+<div class="absolute -right-3 -top-3 bg-yellow-400 p-2 rounded-xl shadow-lg rotate-12">
+<span class="material-symbols-outlined text-white">edit</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 w-full mt-8">
+<div class="monster-card group cursor-pointer">
+<div class="bg-white rounded-[4rem] p-10 border-4 glow-purple transition-all duration-300 relative overflow-hidden h-full flex flex-col items-center">
+<div class="w-full aspect-square bg-purple-50 rounded-[3rem] flex items-center justify-center mb-8 relative">
+<div class="w-36 h-44 bg-learn-purple rounded-[3.5rem] relative flex flex-col items-center pt-10 border-b-[12px] border-purple-700/20 shadow-inner">
+<div class="flex gap-2">
+<div class="w-8 h-8 bg-white rounded-full flex items-center justify-center">
+<div class="w-4 h-4 bg-black rounded-full"></div>
+</div>
+<div class="w-10 h-10 bg-white rounded-full flex items-center justify-center">
+<div class="w-5 h-5 bg-black rounded-full"></div>
+</div>
+<div class="w-8 h-8 bg-white rounded-full flex items-center justify-center">
+<div class="w-4 h-4 bg-black rounded-full"></div>
+</div>
+</div>
+<div class="mt-6 w-14 h-4 bg-purple-400 rounded-full"></div>
+<div class="absolute -right-6 top-1/2 -rotate-[30deg] origin-left">
+<div class="w-14 h-7 bg-learn-purple rounded-full border-b-4 border-purple-700"></div>
+</div>
+</div>
+</div>
+<h3 class="text-4xl font-black text-learn-purple">Gloop</h3>
+<p class="text-purple-400 font-bold mt-2">Super Smart!</p>
+</div>
+</div>
+<div class="monster-card group cursor-pointer">
+<div class="bg-white rounded-[4rem] p-10 border-4 glow-orange transition-all duration-300 relative overflow-hidden h-full flex flex-col items-center">
+<div class="w-full aspect-square bg-orange-50 rounded-[3rem] flex items-center justify-center mb-8 relative">
+<div class="w-48 h-36 bg-learn-orange rounded-[4rem] relative flex flex-col items-center justify-center border-b-[12px] border-orange-700/20 shadow-inner">
+<div class="flex gap-5">
+<div class="w-10 h-10 bg-white rounded-full flex items-center justify-center">
+<div class="w-5 h-5 bg-black rounded-full"></div>
+</div>
+<div class="w-10 h-10 bg-white rounded-full flex items-center justify-center">
+<div class="w-5 h-5 bg-black rounded-full"></div>
+</div>
+</div>
+<div class="mt-4 w-20 h-10 border-t-6 border-white rounded-full"></div>
+<div class="absolute top-12 left-12 w-10 h-10 bg-learn-orange z-10 hidden group-hover:block">
+<div class="w-10 h-2 bg-black/80 rounded-full mt-4"></div>
+</div>
+<div class="absolute -top-6 left-10 w-8 h-12 bg-learn-orange rounded-full -rotate-12 border-t-4 border-orange-300"></div>
+<div class="absolute -top-6 right-10 w-8 h-12 bg-learn-orange rounded-full rotate-12 border-t-4 border-orange-300"></div>
+</div>
+</div>
+<h3 class="text-4xl font-black text-learn-orange">Zippy</h3>
+<p class="text-orange-400 font-bold mt-2">Always Fast!</p>
+</div>
+</div>
+<div class="monster-card group cursor-pointer">
+<div class="bg-white rounded-[4rem] p-10 border-4 glow-pink transition-all duration-300 relative overflow-hidden h-full flex flex-col items-center">
+<div class="w-full aspect-square bg-pink-50 rounded-[3rem] flex items-center justify-center mb-8 relative">
+<div class="w-40 h-40 bg-learn-pink rounded-3xl rotate-45 relative flex items-center justify-center border-b-[12px] border-pink-700/20 shadow-inner">
+<div class="-rotate-45 flex flex-col items-center">
+<div class="flex gap-3 items-end">
+<div class="w-10 h-2 bg-black rounded-full mb-4"></div> 
+<div class="w-10 h-10 bg-white rounded-full flex items-center justify-center">
+<div class="w-5 h-5 bg-black rounded-full"></div>
+</div>
+</div>
+<div class="mt-6 w-12 h-12 bg-pink-300 rounded-full border-4 border-pink-400 flex items-center justify-center">
+<div class="w-6 h-6 bg-white rounded-full opacity-60"></div>
+</div>
+</div>
+</div>
+</div>
+<h3 class="text-4xl font-black text-learn-pink">Bink</h3>
+<p class="text-pink-400 font-bold mt-2">Super Cute!</p>
+</div>
+</div>
+<div class="monster-card group cursor-pointer">
+<div class="bg-white rounded-[4rem] p-10 border-4 glow-blue transition-all duration-300 relative overflow-hidden h-full flex flex-col items-center">
+<div class="w-full aspect-square bg-blue-50 rounded-[3rem] flex items-center justify-center mb-8 relative">
+<div class="w-40 h-40 bg-learn-blue rounded-[3rem] relative border-b-[12px] border-blue-700/20 shadow-inner flex flex-col items-center justify-center">
+<div class="w-12 h-12 bg-white rounded-full flex items-center justify-center mb-4">
+<div class="w-6 h-6 bg-black rounded-full"></div>
+</div>
+<div class="w-16 h-8 bg-white rounded-b-full shadow-inner"></div>
+<div class="absolute -left-6 top-1/4 w-10 h-16 bg-blue-300/80 rounded-full -rotate-[15deg] border-l-4 border-white/30"></div>
+<div class="absolute -right-6 top-1/4 w-10 h-16 bg-blue-300/80 rounded-full rotate-[15deg] border-r-4 border-white/30"></div>
+</div>
+</div>
+<h3 class="text-4xl font-black text-learn-blue">Floater</h3>
+<p class="text-blue-400 font-bold mt-2">Space Friend!</p>
+</div>
+</div>
+</div>
+<button class="mt-24 bouncy-btn bg-learn-green text-white text-5xl font-black px-24 py-8 rounded-[3rem] uppercase tracking-wider flex items-center gap-4">
+        Let's Go!
+        <span class="material-symbols-outlined text-5xl">rocket_launch</span>
+</button>
+</main>
+<footer class="mt-12 py-12 text-center text-blue-400/60 font-bold text-lg">
+<div class="flex justify-center gap-8 mb-4">
+<span class="material-symbols-outlined">star</span>
+<span class="material-symbols-outlined">favorite</span>
+<span class="material-symbols-outlined">thumb_up</span>
+</div>
+<p>© 2024 LearnBot! World • Your Magical Learning Adventure</p>
+</footer>
+
+</body></html>
