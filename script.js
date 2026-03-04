@@ -10,11 +10,11 @@ document.addEventListener('DOMContentLoaded', () => {
         card.addEventListener('click', () => {
             // Deselect all
             monsterCards.forEach(c => c.classList.remove('selected'));
-            
+
             // Select clicked
             card.classList.add('selected');
             selectedMonster = card.querySelector('h3').innerText;
-            
+
             // Fun bounce effect on click
             card.style.transform = 'scale(0.95)';
             setTimeout(() => {
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Submit Logic
     submitBtn.addEventListener('click', (e) => {
         const username = nameInput.value.trim();
-        
+
         if (!username) {
             // Shake animation for error
             nameInput.classList.add('animate-pulse', 'border-red-400');
@@ -44,9 +44,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Success - Simulating login
         // In a real app, this would send data to backend
         console.log(`User: ${username}, Friend: ${selectedMonster}`);
-        alert(`Welcome, ${username}! ${selectedMonster} is excited to learn with you!`);
-        
-        // redirect or change state here
+
+        // redirect to dashboard
+        window.location.href = 'dashboard.html';
     });
 
     // Input interaction
